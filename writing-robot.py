@@ -14,6 +14,7 @@ API = tweepy.API(auth)
 
 if __name__ == "__main__":
     while True:
+        print("starting")
         #Get the last 50 tweets that match the criteria
         for tweet in tweepy.Cursor(API.search, q='#amwriting OR #redditwriters OR #100daysofwriting', rpp=50).items(50):
             if not tweet.retweeted:
