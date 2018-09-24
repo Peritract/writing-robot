@@ -2,10 +2,10 @@ import tweepy
 import os
 from time import sleep
 
-A_SECRET = os.environ['A_SECRET']
-A_TOKEN = os.environ['A_TOKEN']
-C_KEY = os.environ['C_KEY']
-C_SECRET = os.environ['C_SECRET']
+A_SECRET = os.environ.get('A_SECRET')
+A_TOKEN = os.environ.get('A_TOKEN')
+C_KEY = os.environ.get('C_KEY')
+C_SECRET = os.environ.get('C_SECRET')
 
 auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
 auth.set_access_token(A_TOKEN, A_SECRET)
