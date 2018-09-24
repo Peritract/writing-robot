@@ -1,1 +1,1 @@
-worker: writing_robot.py
+worker: python writing-robot.py
