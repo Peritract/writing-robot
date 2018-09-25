@@ -12,7 +12,6 @@ class Watcher(tweepy.StreamListener):
     def handle_queue(self):
         #If there's something in the queue and the last action was long enough ago, act.
         if len(self.queue) > 0 and self.check_time():
-            print("printing!")
             tweet = self.queue.pop(0)
             tweet.retweet()
             self.last = datetime.datetime.now()
@@ -26,7 +25,6 @@ class Watcher(tweepy.StreamListener):
     
     def on_status(self, status):
         #Add the tweet to the queue
-        print("GOT ONE")
         self.queue.append(status)
         
     def on_error(self, error):
