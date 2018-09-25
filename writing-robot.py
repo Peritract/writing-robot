@@ -1,6 +1,9 @@
 import tweepy
 import os
+import datetime
+
 from time import sleep
+from watcher import Watcher
 
 A_SECRET = os.environ['A_SECRET']
 A_TOKEN = os.environ['A_TOKEN']
@@ -13,11 +16,11 @@ auth.set_access_token(A_TOKEN, A_SECRET)
 API = tweepy.API(auth)
 
 if __name__ == "__main__":
-    while True:
-        print("starting")
-        #Get the last 50 tweets that match the criteria
-        for tweet in tweepy.Cursor(API.search, q='#amwriting OR #redditwriters OR #100daysofwriting', rpp=50).items(50):
-            if not tweet.retweeted:
-                tweet.retweet()
-                sleep(15)
-    sleep(60)
+    queue = []
+    watcher = Watcher(API)
+    stream = tweepy.Stream(auth=API.auth, listener=watcher)
+    stream.filter(track=["#redditwriters","#100daysofwriting"], async=True)
+    count = 0
+    while watcher.functioning:
+        watcher.handle_queue()
+        sleep(10)
