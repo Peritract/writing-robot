@@ -1,4 +1,6 @@
 import tweepy
+import datetime
+from time import sleep
 
 class Watcher(tweepy.StreamListener):
     def __init__(self, api):
@@ -13,6 +15,7 @@ class Watcher(tweepy.StreamListener):
         if len(self.queue) > 0 and self.check_time():
             self.queue.pop(0).retweet()
             self.last = datetime.datetime.now()
+        sleep(10)
 
     def check_time(self):
         #Checks if the last action was long enough ago.
