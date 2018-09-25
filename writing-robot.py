@@ -1,8 +1,5 @@
 import tweepy
 import os
-import datetime
-
-from time import sleep
 from watcher import Watcher
 
 A_SECRET = os.environ['A_SECRET']
@@ -16,11 +13,14 @@ auth.set_access_token(A_TOKEN, A_SECRET)
 API = tweepy.API(auth)
 
 if __name__ == "__main__":
-    queue = []
-    watcher = Watcher(API)
-    stream = tweepy.Stream(auth=API.auth, listener=watcher)
+
+    watcher = Watcher(API) #Instantiate the Tweet handler
+
+    stream = tweepy.Stream(auth=API.auth, listener=watcher) #Start watching the stream
+    #Set the filters and run asynchronously
     stream.filter(track=["#redditwriters","#100daysofwriting"], async=True)
-    count = 0
+
+    #While the stream is watched by another thread, continually check if the queue needs handling
     while watcher.functioning:
         watcher.handle_queue()
-        sleep(10)
+
