@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     stream = tweepy.Stream(auth=API.auth, listener=watcher) #Start watching the stream
     #Set the filters and run asynchronously
-    stream.filter(track=["#redditwriters","#100daysofwriting"], async=True)
+    stream.filter(track=["#redditwriters","#100daysofwriting","#amwriting"], async=True)
 
     #While the stream is watched by another thread, continually check if the queue needs handling
     while watcher.functioning:
