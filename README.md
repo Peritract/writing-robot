@@ -5,7 +5,7 @@ A twitter-bot that cares deeply about writers. If you're a writer, it cares abou
 A whole bunch of different hashtags have their own dedicated Twitter bots. I noticed that #100DaysOfWriting didn't have a bot, and I had spare API keys hanging around. Then I increased the scope, because that's not a very active hashtag, so now it watches several more.
 
 ## Usage
-The bot tweets as ![@writingrobot](https://twitter.com/writingrobot). 
+The bot tweets as [@writingrobot](https://twitter.com/writingrobot). 
 
 Currently it watches several hashtags - #100DaysOfWriting, #RedditWriters, #amwritingHorror, #amwritingFantasy, #amwritingRomance, #amwritingScifi. It doesn't watch #amwriting itself, because that one is so popular that the bot would run afoul of Twitter's rate limits if it tried to keep up, and also the hashtag is full of spam. 
 
