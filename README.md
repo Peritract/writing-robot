@@ -16,5 +16,5 @@ It should tweet once every forty seconds, and update who it follows every 12 hou
 ## Dependencies
 Tweepy
 
-##Issues & Suggestions
+## Issues & Suggestions
 If something goes horribly wrong, please let me know. The bot has a limited ability to call for help if something goes wrong. If that fails and you notice, or if you have any suggestions for improvement, email me at peritract@hotmail.co.uk.
