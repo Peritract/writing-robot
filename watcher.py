@@ -15,7 +15,7 @@ class Watcher(tweepy.StreamListener):
         for follower in tweepy.Cursor(self.api.followers).items():
             if not follower.following:
                 follower.follow()
-            self.maitenance = datetime.datetime.now()
+            self.maintenance = datetime.datetime.now()
 
     def handle_queue(self):
         #If there's something in the queue and the last action was long enough ago, act.
