@@ -25,9 +25,10 @@ class Watcher(tweepy.StreamListener):
             tweet = self.queue.pop(0)
             try:
                 tweet.retweet()
+                self.last = datetime.datetime.now()
             except tweepy.TweepError as e:
                 pass
-            self.last = datetime.datetime.now()
+            
 
     def check_time(self):
         #Checks if the last action was long enough ago.
@@ -40,7 +41,7 @@ class Watcher(tweepy.StreamListener):
     
     def on_status(self, status):
         #Add the tweet to the queue
-        if status.in_reply_to_status_id == None and status.retweet_count == 0:
+        if status.in_reply_to_status_id == None and status.retweet_count == 0 and len(status.entities.get('hashtags')) < 5:
             self.queue.append(status)
         
     def on_error(self, error):

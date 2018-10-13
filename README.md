@@ -9,7 +9,9 @@ The bot tweets as [@writingrobot](https://twitter.com/writingrobot).
 
 Currently it watches several hashtags - #100DaysOfWriting, #RedditWriters, #amwritingHorror, #amwritingFantasy, #amwritingRomance, #amwritingScifi. It doesn't watch #amwriting itself, because that one is so popular that the bot would run afoul of Twitter's rate limits if it tried to keep up, and also the hashtag is full of spam. 
 
-If you tweet with one of those hashtags, it should retweet you, although you might fall through the gaps if you pick a very busy time. If you follow the account, it will eventually follow you back. 
+If you tweet with one of those hashtags, it should retweet you, although you might fall through the gaps if you pick a very busy time. If you tweet with more than four hashtags, it will ignore you - this is a counter-measure against spam and also those dreadful people who hashtag every second word. 
+
+If you follow the account, it will eventually follow you back. 
 
 It should tweet once every forty seconds, and update who it follows every 12 hours.
 
