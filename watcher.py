@@ -25,10 +25,9 @@ class Watcher(tweepy.StreamListener):
             tweet = self.queue.pop(0)
             try:
                 tweet.retweet()
-                self.last = datetime.datetime.now()
             except tweepy.TweepError as e:
                 pass
-            
+            self.last = datetime.datetime.now()
 
     def check_time(self):
         #Checks if the last action was long enough ago.
