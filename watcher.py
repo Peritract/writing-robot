@@ -12,7 +12,7 @@ class Watcher(tweepy.StreamListener):
 
     def essential_maintenance(self):
         #follow all followers
-        let new_follows = 0
+        new_follows = 0
         for follower in tweepy.Cursor(self.api.followers).items():
             if not follower.following and new_follows < 100:
                 follower.follow()
