@@ -50,12 +50,15 @@ class Watcher(tweepy.StreamListener):
             }
 
     def essential_maintenance(self):
+        """ Disabling following while I work out what the problem is.
         #follow all followers
         new_follows = 0
         for follower in tweepy.Cursor(self.api.followers).items():
-            if not follower.following and new_follows < 15:
+            if not follower.following and new_follows < 5:
                 follower.follow()
                 new_follows += 1
+                print("following")
+        """
         self.maintenance = datetime.datetime.now()
 
     def seasonal_actions(self):
@@ -70,7 +73,7 @@ class Watcher(tweepy.StreamListener):
 
     def check_events(self):
         current = datetime.datetime.now()
-        if current > self.maintenance + datetime.timedelta(minutes=60):
+        if current > self.maintenance + datetime.timedelta(hours=12):
             self.essential_maintenance()
         elif current > self.seasonal + datetime.timedelta(hours=24):
             self.seasonal_actions()
