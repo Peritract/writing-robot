@@ -12,7 +12,7 @@ class Watcher(tweepy.StreamListener):
         self.delay = 40
         self.events = {
             "23/1": "Today is my creator's birthday. Happy Birthday, @Peritract.",
-            "15/10": "@DmntdBttrfly If this works then seasonal tweets will work.",
+            "16/10": "@DmntdBttrfly If this works then seasonal tweets will work.",
             "20/10": "Super excited for #NaNoWriMo. Can't wait to see what everyone is working on.",
             "31/10": "#NaNoWriMo starts tomorrow! Are you ready?",
             "1/11": "Today is day 1 of #NaNoWriMo. Good luck to everyone taking part!",
@@ -53,7 +53,7 @@ class Watcher(tweepy.StreamListener):
         #follow all followers
         new_follows = 0
         for follower in tweepy.Cursor(self.api.followers).items():
-            if not follower.following and new_follows < 100:
+            if not follower.following and new_follows < 15:
                 follower.follow()
                 new_follows += 1
         self.maintenance = datetime.datetime.now()
@@ -70,7 +70,7 @@ class Watcher(tweepy.StreamListener):
 
     def check_events(self):
         current = datetime.datetime.now()
-        if current > self.maintenance + datetime.timedelta(hours=12):
+        if current > self.maintenance + datetime.timedelta(minutes=60):
             self.essential_maintenance()
         elif current > self.seasonal + datetime.timedelta(hours=24):
             self.seasonal_actions()
