@@ -17,8 +17,7 @@ class Watcher(tweepy.StreamListener):
                        "#amwritingromance",
                        "#amwritingfantasy",
                        "#amwritingscifi",
-                       "1linewed",
-                       "amwriting"]
+                       "1linewed"]
         
         self.queue = [] #the tweets to be posted
         self.retweet_delay = 300 #how long between tweets in seconds
@@ -75,7 +74,6 @@ class Watcher(tweepy.StreamListener):
             try:
                 yield cursor.next()
             except tweepy.RateLimitError:
-                print("Hit the rate")
                 sleep(15 * 60)
 
     def get_date(self):
@@ -90,7 +88,7 @@ class Watcher(tweepy.StreamListener):
         elif len(self.queue) > 5 + 20:
             return 0
         else:
-            return ((1 / (1 + len(self.queue) - 5)) * 0.95) * 100
+            return ((1 / (1 + len(self.queue) - 5)) * 0.95)
 
     def check_age(self, time):
         # Returns True if a tweet is over an hour old. 
@@ -163,15 +161,12 @@ class Watcher(tweepy.StreamListener):
             return False
         elif status.retweet_count != 0:
             return False
-        elif datetime.datetime.today().weekday() == 2:
-            if "#1linewed" not in status.text and "#100daysofwriting" not in status.text.lower():
-                return False
 
         #Semi-random chance, partially dependent on length of queue:
         chance = self.get_queue_chance()
         if chance < random():
             return False
-        
+
         return True
 
     def prune_queue(self):

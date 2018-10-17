@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     watcher = Watcher(API) #Instantiate the Tweet handler
 
-    stream = tweepy.Stream(auth=API.auth, listener=watcher) #Start watching the stream
+    stream = tweepy.Stream(auth=API.auth, listener=watcher, tweet_mode='extended') #Start watching the stream
     #Set the filters and run asynchronously
     stream.filter(track=watcher.filter, async=True)
 
