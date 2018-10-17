@@ -21,7 +21,7 @@ class Watcher(tweepy.StreamListener):
                        "amwriting"]
         
         self.queue = [] #the tweets to be posted
-        self.retweet_delay = 360 #how long between tweets in seconds
+        self.retweet_delay = 300 #how long between tweets in seconds
         self.last_retweet = datetime.datetime.now() #The last time it tweeted
 
         #Tweets for specific days of the year
