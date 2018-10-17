@@ -1,6 +1,6 @@
 import tweepy
 import os
-from watcher import Watcher
+from writing_watcher import Watcher
 
 A_SECRET = os.environ['A_SECRET']
 A_TOKEN = os.environ['A_TOKEN']
@@ -18,9 +18,9 @@ if __name__ == "__main__":
 
     stream = tweepy.Stream(auth=API.auth, listener=watcher) #Start watching the stream
     #Set the filters and run asynchronously
-    stream.filter(track=["#redditwriters","#100daysofwriting","#amwritinghorror","#amwritingromance","#amwritingfantasy","#amwritingscifi"], async=True)
+    stream.filter(track=watcher.filter, async=True)
 
     #While the stream is watched by another thread, continually check if the queue needs handling
-    while watcher.functioning:
+    while watcher.running:
         watcher.handle_queue()
 
