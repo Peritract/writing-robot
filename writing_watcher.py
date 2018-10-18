@@ -95,8 +95,8 @@ class Watcher(tweepy.StreamListener):
             return ((1 / (1 + len(self.queue) - 5)) * 0.95)
 
     def check_age(self, time):
-        # Returns True if a tweet is over an hour old. 
-        if time > datetime.datetime.now() - datetime.timedelta(hours=2):
+        # Returns True if a tweet is less than an hour old. 
+        if time > datetime.datetime.now() - datetime.timedelta(hours=1):
             return True
         return False
 
