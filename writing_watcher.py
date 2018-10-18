@@ -9,7 +9,10 @@ class Watcher(tweepy.StreamListener):
 
         self.running = True
 
-        self.date = self.get_date() #Keeps track of what day the bot thinks it is.
+        #Keeps track of what day the bot thinks it is.
+        #Initially set to the day before, so that it updates on the day the program starts. 
+        self.date = "{0}/{1}".format((datetime.datetime.now() - datetime.timedelta(days=1)).day, datetime.datetime.now().month) 
+        
 
         #The hashtags the stream will watch for.
         self.filter = ["#100daysofwriting",
@@ -17,7 +20,8 @@ class Watcher(tweepy.StreamListener):
                        "#amwritingromance",
                        "#amwritingfantasy",
                        "#amwritingscifi",
-                       "1linewed"]
+                       "1linewed",
+                       "redditwriters"]
         
         self.queue = [] #the tweets to be posted
         self.retweet_delay = 300 #how long between tweets in seconds
@@ -25,7 +29,7 @@ class Watcher(tweepy.StreamListener):
 
         #Tweets for specific days of the year
         self.events = {
-            "17/10": "TEST",
+            "18/10": "TEST",
             "23/1": "Today is my creator's birthday. Happy Birthday, @Peritract.",
             "20/10": "Super excited for #NaNoWriMo. Can't wait to see what everyone is working on.",
             "31/10": "#NaNoWriMo starts tomorrow! Are you ready?",
@@ -111,7 +115,7 @@ class Watcher(tweepy.StreamListener):
             tweet = self.queue.pop(0)
             try:
                 tweet.retweet()
-            except tweepy.TweepError as e:
+            except tweepy.TweepError as error:
                 self.on_error(error)
             self.last_retweet = datetime.datetime.now() # Reset the delay
         self.prune_queue() # Stop the queue getting stale
