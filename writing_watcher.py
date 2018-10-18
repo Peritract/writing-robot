@@ -133,6 +133,7 @@ class Watcher(tweepy.StreamListener):
     def daily_actions(self):
         now = datetime.datetime.now()
         threshold = now.replace(hour=16, minute=0, second=0, microsecond=0)
+        print(now, threshold)
         if now > threshold: #If it is after 4pm
             print("running dailies")
             today = self.get_date() 
