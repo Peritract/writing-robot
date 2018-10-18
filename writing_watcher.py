@@ -12,7 +12,6 @@ class Watcher(tweepy.StreamListener):
         #Keeps track of what day the bot thinks it is.
         #Initially set to the day before, so that it updates on the day the program starts. 
         self.date = "{0}/{1}".format((datetime.datetime.now() - datetime.timedelta(days=1)).day, (datetime.datetime.now() - datetime.timedelta(days=1)).month)
-        print(self.date)
         
 
         #The hashtags the stream will watch for.
@@ -123,7 +122,6 @@ class Watcher(tweepy.StreamListener):
         self.daily_actions() # Check for a daily tweet
 
     def update_followers(self):
-        print("updating")
         #Loop through all current followers and follow them back. 
         for follower in self.handle_cursor_limit(tweepy.Cursor(self.api.followers).items(200)):
             if not follower.following:
@@ -133,16 +131,13 @@ class Watcher(tweepy.StreamListener):
     def daily_actions(self):
         now = datetime.datetime.now()
         threshold = now.replace(hour=16, minute=0, second=0, microsecond=0)
-        print(now, threshold)
         if now > threshold: #If it is after 4pm
-            print("running dailies")
             today = self.get_date() 
             if self.date != today: #If it hasn't been checked yet today
                 self.date = today # Update when last checked
                 
                 # Post a specific tweet for the day of the year.
                 if today in self.events: # If there is an event tweet
-                    print("posting event")
                     self.post_tweet(self.events[today])
 
                 #update follower counts
