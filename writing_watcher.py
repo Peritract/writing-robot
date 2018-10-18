@@ -89,7 +89,7 @@ class Watcher(tweepy.StreamListener):
         # Returns a sub-1 number - the chance that a tweet will be added to the queue
         if len(self.queue) < 5:
             return 1
-        elif len(self.queue) > 5 + 20:
+        elif len(self.queue) > 5 + 12:
             return 0
         else:
             return ((1 / (1 + len(self.queue) - 5)) * 0.95)
@@ -111,7 +111,7 @@ class Watcher(tweepy.StreamListener):
     def handle_queue(self):
         # Decides whether to tweet or not.
         if len(self.queue) > 0 and self.check_last_retweet_time():
-            # If there is anything in the queue, take the oldest oen and retweet it.
+            # If there is anything in the queue, take the oldest one and retweet it.
             tweet = self.queue.pop(0)
             try:
                 tweet.retweet()
