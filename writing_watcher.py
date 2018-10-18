@@ -29,7 +29,6 @@ class Watcher(tweepy.StreamListener):
 
         #Tweets for specific days of the year
         self.events = {
-            "18/10": "TEST",
             "23/1": "Today is my creator's birthday. Happy Birthday, @Peritract.",
             "20/10": "Super excited for #NaNoWriMo. Can't wait to see what everyone is working on.",
             "31/10": "#NaNoWriMo starts tomorrow! Are you ready?",
@@ -195,7 +194,7 @@ class Watcher(tweepy.StreamListener):
         
     def on_error(self, error):
         # If twitter sends an error back from the stream
-        print(datetime.datetime.now(), "Error: ", error.code, "-", error.message)
-        if error.code != 144: #Status to be retweeted no longer exists - doesn't need to stop anything
+        print(datetime.datetime.now(), "Error:", error.message)
+        if error.api_code != 144: #Status to be retweeted no longer exists - doesn't need to stop anything
             self.running = False
             self.post_tweet("@peritract Help me I am broken.")
