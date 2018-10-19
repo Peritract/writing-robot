@@ -147,7 +147,7 @@ class Watcher(tweepy.StreamListener):
 
     def update_blocks(self):
         # Update the list of blocked users
-        blocked_list = self.api.blocks_ids()["ids"]
+        return self.api.blocks_ids()["ids"]
 
     def daily_actions(self):
         now = datetime.datetime.now()
