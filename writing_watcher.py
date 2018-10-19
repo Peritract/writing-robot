@@ -146,9 +146,7 @@ class Watcher(tweepy.StreamListener):
                 sleep(5)
 
     def update_blocks(self):
-        blocked_list = []
-        for block in self.handle_cursor_limit(tweepy.Cursor(self.api.blocks_ids).items(200)):
-            block_list.append(block)
+        blocked_list = self.api.blocks_ids()
 
     def daily_actions(self):
         now = datetime.datetime.now()
