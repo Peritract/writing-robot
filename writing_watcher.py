@@ -117,7 +117,7 @@ class Watcher(tweepy.StreamListener):
         for tag in hashtags:
             print(tag)
             #Only add #1linewed tweets to the queue on Wednesdays
-            if tag.text.lower() == "1linewed":
+            if tag["text"].lower() == "1linewed":
                 if weekday == 2:
                     return True
                 else:
