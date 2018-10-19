@@ -26,7 +26,8 @@ class Watcher(tweepy.StreamListener):
                        "1linewed",
                        "redditwriters"]
         
-        self.blocked = self.update_blocks()
+        self.blocked = self.api.blocks_ids()
+        print(self.blocked)
         
         self.queue = [] #the tweets to be posted
         self.retweet_delay = 240 #how long between tweets in seconds
@@ -115,7 +116,6 @@ class Watcher(tweepy.StreamListener):
         # Returns True if the tweet passes the filter
         weekday = datetime.datetime.today().weekday()
         for tag in hashtags:
-            print(tag)
             #Only add #1linewed tweets to the queue on Wednesdays
             if tag["text"].lower() == "1linewed":
                 if weekday == 2:
