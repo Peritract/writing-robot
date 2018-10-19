@@ -6,6 +6,9 @@ from time import sleep
 class Watcher(tweepy.StreamListener):
     def __init__(self, api):
         self.api = api #Twitter auth details
+        
+        if not self.api.verify_credentials():
+            self.on_error("Invalid credentials.")
 
         self.running = True
 
@@ -22,6 +25,8 @@ class Watcher(tweepy.StreamListener):
                        "#amwritingscifi",
                        "1linewed",
                        "redditwriters"]
+        
+        self.blocked = self.update_blocks()
         
         self.queue = [] #the tweets to be posted
         self.retweet_delay = 240 #how long between tweets in seconds
@@ -105,6 +110,19 @@ class Watcher(tweepy.StreamListener):
             return True
         return False
 
+    def filter_hashtags(self, hashtags):
+        # Searches for specific hashtags for days of the week.
+        # Returns True if the tweet passes the filter
+        weekday = datetime.datetime.today().weekday()
+        for tag in hashtags:
+            #Only add #1linewed tweets to the queue on Wednesdays
+            if tag.text.lower() == "1linewed":
+                if weekday == 2:
+                    return True
+                else:
+                    return False
+        return True
+
     # Central, generally directly involved with Twitter, functions
 
     def handle_queue(self):
@@ -127,6 +145,11 @@ class Watcher(tweepy.StreamListener):
                 follower.follow()
                 sleep(5)
 
+    def update_blocks(self):
+        blocked_list = []
+        for block in self.handle_cursor_limit(tweepy.Cursor(self.api.blocks_ids).items(200)):
+            block_list.append(block)
+
     def daily_actions(self):
         now = datetime.datetime.now()
         threshold = now.replace(hour=16, minute=0, second=0, microsecond=0)
@@ -139,8 +162,11 @@ class Watcher(tweepy.StreamListener):
                 if today in self.events: # If there is an event tweet
                     self.post_tweet(self.events[today])
 
-                #update follower counts
+                # Update follower counts
                 self.update_followers()
+
+                # Update the block list 
+                self.blocked = self.update_blocks()
         
                 
     def consider_tweet(self, status):
@@ -148,6 +174,8 @@ class Watcher(tweepy.StreamListener):
 
         #Disqualifying conditions
         if len(status.entities.get('hashtags')) > 4:
+            return False
+        elif not filter_hashtags(status.entities.get('hashtags')):
             return False
         elif status.user.screen_name == "WritingRobot":
             return False
@@ -163,12 +191,15 @@ class Watcher(tweepy.StreamListener):
             return False
         elif status.retweet_count != 0:
             return False
+        elif status.user.id in self.blocked:
+            return False
 
         #Semi-random chance, partially dependent on length of queue:
         chance = self.get_queue_chance()
         if chance < random():
             return False
 
+        # Actually accept the tweet
         return True
 
     def prune_queue(self):
