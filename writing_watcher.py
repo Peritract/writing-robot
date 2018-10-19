@@ -23,8 +23,9 @@ class Watcher(tweepy.StreamListener):
                        "#amwritingromance",
                        "#amwritingfantasy",
                        "#amwritingscifi",
-                       "1linewed",
-                       "redditwriters"]
+                       "#1linewed",
+                       "#redditwriters",
+                       "#nanowrimo"]
         
         self.blocked = self.update_blocks()
         
@@ -114,13 +115,14 @@ class Watcher(tweepy.StreamListener):
         # Searches for specific hashtags for days of the week.
         # Returns True if the tweet passes the filter
         weekday = datetime.datetime.today().weekday()
-        for tag in hashtags:
-            #Only add #1linewed tweets to the queue on Wednesdays
-            if tag["text"].lower() == "1linewed":
-                if weekday == 2:
+        if weekday == 2:
+            #On Wednesdays, only let #1linewed and #100DaysOfWriting through
+            for tag in hashtags:
+                if tag["text"].lower() == "1linewed" or tag["text"].lower() = "100daysofwriting":
                     return True
-                else:
-                    return False
+            return False
+        
+        #Barring a more applicable filter, allow everything as default
         return True
 
     # Central, generally directly involved with Twitter, functions
