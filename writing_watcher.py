@@ -118,7 +118,7 @@ class Watcher(tweepy.StreamListener):
         if weekday == 2:
             #On Wednesdays, only let #1linewed and #100DaysOfWriting through
             for tag in hashtags:
-                if tag["text"].lower() == "1linewed" or tag["text"].lower() = "100daysofwriting":
+                if tag["text"].lower() == "1linewed" or tag["text"].lower() == "100daysofwriting":
                     return True
             return False
         
