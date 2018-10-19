@@ -26,7 +26,7 @@ class Watcher(tweepy.StreamListener):
                        "1linewed",
                        "redditwriters"]
         
-        self.blocked = self.api.blocks_ids()
+        self.blocked = self.api.blocks_ids()["ids"]
         print(self.blocked)
         
         self.queue = [] #the tweets to be posted
@@ -147,7 +147,7 @@ class Watcher(tweepy.StreamListener):
                 sleep(5)
 
     def update_blocks(self):
-        blocked_list = self.api.blocks_ids()
+        blocked_list = self.api.blocks_ids()["ids"]
 
     def daily_actions(self):
         now = datetime.datetime.now()
