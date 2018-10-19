@@ -173,7 +173,7 @@ class Watcher(tweepy.StreamListener):
         #Disqualifying conditions
         if len(status.entities.get('hashtags')) > 4:
             return False
-        elif not filter_hashtags(status.entities.get('hashtags')):
+        elif not self.filter_hashtags(status.entities.get('hashtags')):
             return False
         elif status.user.screen_name == "WritingRobot":
             return False
