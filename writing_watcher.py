@@ -153,7 +153,7 @@ class Watcher(tweepy.StreamListener):
 
     def daily_actions(self):
         now = datetime.datetime.now()
-        threshold = now.replace(hour=16, minute=0, second=0, microsecond=0)
+        threshold = now.replace(hour=18, minute=0, second=0, microsecond=0)
         if now > threshold: #If it is after 4pm
             today = self.get_date() 
             if self.date != today: #If it hasn't been checked yet today
@@ -227,6 +227,6 @@ class Watcher(tweepy.StreamListener):
     def on_error(self, error):
         # If twitter sends an error back from the stream
         print(datetime.datetime.now(), "Error:", error.response.text)
-        if error.api_code != 144: #Status to be retweeted no longer exists - doesn't need to stop anything
+        if error.api_code != 144 or error.api_code != 187: #Status to be retweeted no longer exists/is duplicate - doesn't need to stop anything
             self.running = False
             self.post_tweet("@peritract Help me I am broken.")
