@@ -13,8 +13,7 @@ class Watcher(tweepy.StreamListener):
         self.running = True
 
         #Keeps track of what day the bot thinks it is.
-        #Initially set to the day before, so that it updates on the day the program starts. 
-        self.date = "{0}/{1}".format((datetime.datetime.now() - datetime.timedelta(days=1)).day, (datetime.datetime.now() - datetime.timedelta(days=1)).month)
+        self.date = self.get_date()
         
 
         #The hashtags the stream will watch for.
@@ -227,8 +226,11 @@ class Watcher(tweepy.StreamListener):
     def on_error(self, error):
         # If twitter sends an error back from the stream
         print(datetime.datetime.now(), "Error:", error.response.text)
-        if error.api_code == 187: # Status is a duplicate. Sleep for a bit. 
-            sleep(15 *60)
-        elif error.api_code != 144: #Status to be retweeted no longer exists - doesn't need to stop anything
+        if error.api_code == 144: #Status to be retweeted no longer exists - doesn't need to stop anything
+            pass
+        elif error.api_code == 187:
+            pass
+        else:
             self.running = False
+            self.post_tweet("@Peritract Help me; I am broken.")
         
