@@ -229,4 +229,3 @@ class Watcher(tweepy.StreamListener):
         print(datetime.datetime.now(), "Error:", error.response.text)
         if error.api_code != 144 or error.api_code != 187: #Status to be retweeted no longer exists/is duplicate - doesn't need to stop anything
             self.running = False
-            self.post_tweet("@peritract Help me I am broken.")
