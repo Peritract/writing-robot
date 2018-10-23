@@ -84,6 +84,18 @@ class Watcher(tweepy.StreamListener):
             except tweepy.RateLimitError:
                 sleep(15 * 60)
 
+    def search_extended_hashtags(self, status):
+        #Checks for more than 4 '#' characters in an extended status.
+        if not hasattr(status, "full_text"):
+            return False
+        print(status.full_text)
+        count = status.full_text.count("#")
+        print(count)
+        if count > 4:
+            return True
+        else:
+            return False
+                
     def get_date(self):
         #Gets today's date in the format D/MM
         today = datetime.datetime.now()
@@ -192,6 +204,8 @@ class Watcher(tweepy.StreamListener):
         elif status.retweet_count != 0:
             return False
         elif status.user.id in self.blocked:
+            return False
+        elif self.search_extended_hashtags(status):
             return False
 
         #Semi-random chance, partially dependent on length of queue:
