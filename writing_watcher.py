@@ -86,7 +86,8 @@ class Watcher(tweepy.StreamListener):
 
     def search_extended_hashtags(self, status):
         #Checks for more than 4 '#' characters in an extended status.
-        if not hasattr(status, "full_text"):
+        if not status.truncated:
+            print(len(status.text))
             return False
         print(status.full_text)
         count = status.full_text.count("#")
