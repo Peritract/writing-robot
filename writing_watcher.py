@@ -85,6 +85,7 @@ class Watcher(tweepy.StreamListener):
                 sleep(15 * 60)
 
     def search_extended_hashtags(self, status):
+        print("checking for extended")
         #Checks for more than 4 '#' characters in an extended status.
         if not hasattr(status, "extended_tweet"):
             print(len(status.text))
