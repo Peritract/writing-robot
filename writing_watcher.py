@@ -204,7 +204,6 @@ class Watcher(tweepy.StreamListener):
         elif status.user.id in self.blocked:
             return False
         elif self.search_extended_hashtags(status):
-            print("failed the hashtag check")
             return False
 
         #Semi-random chance, partially dependent on length of queue:
