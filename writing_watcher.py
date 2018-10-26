@@ -163,11 +163,11 @@ class Watcher(tweepy.StreamListener):
     def daily_actions(self):
         now = datetime.datetime.now()
         threshold = now.replace(hour=18, minute=0, second=0, microsecond=0)
-        if now > threshold: #If it is after 4pm
+        if now > threshold: #If it is after 6pm
             today = self.get_date() 
             if self.date != today: #If it hasn't been checked yet today
                 self.date = today # Update when last checked
-                
+                print("running dailies")
                 # Post a specific tweet for the day of the year.
                 if today in self.events: # If there is an event tweet
                     self.post_tweet(self.events[today])
