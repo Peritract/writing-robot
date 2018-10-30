@@ -12,8 +12,9 @@ class Watcher(tweepy.StreamListener):
 
         self.running = True
 
-        #Keeps track of what day the bot thinks it is.
-        self.date = self.get_date()
+        #Keeps track of what day the bot thinks it is. Initialises as the day before the actual day, to avoid problems.
+        day = datetime.datetime.now() + datetime.timedelta(days=-1)
+        self.date = "{0}/{1}".format(day.day, day.month)
         
 
         #The hashtags the stream will watch for.
