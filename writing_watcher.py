@@ -238,10 +238,10 @@ class Watcher(tweepy.StreamListener):
         
     def on_error(self, error):
         # If twitter sends an error back from the stream
-        print(datetime.datetime.now(), "Error:", error.response.text)
+        print(datetime.datetime.now(), "Error:", error)
         if error.api_code == 144: #Status to be retweeted no longer exists - doesn't need to stop anything
             pass
-        elif error.api_code == 187:
+        elif error.api_code == 187: #Duplicate status
             pass
         else:
             self.running = False
