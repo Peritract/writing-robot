@@ -154,7 +154,10 @@ class Watcher(tweepy.StreamListener):
         #Loop through all current followers and follow them back. 
         for follower in self.handle_cursor_limit(tweepy.Cursor(self.api.followers).items(200)):
             if not follower.following:
-                follower.follow()
+                try:
+                    follower.follow()
+                except tweepy.TweepError as error:
+                    self.on_error(error)
                 sleep(5)
 
     def update_blocks(self):
