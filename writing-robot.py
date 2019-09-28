@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     stream = tweepy.Stream(auth=API.auth, listener=watcher, tweet_mode='extended') #Start watching the stream
     #Set the filters and run asynchronously
-    stream.filter(track=watcher.filter, languages=["en"], is_async=True)
+    stream.filter(track=watcher.filter, languages=["en"], async=True)
 
     #While the stream is watched by another thread, continually check if the queue needs handling
     while watcher.running:
