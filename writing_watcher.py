@@ -159,6 +159,19 @@ class Watcher(tweepy.StreamListener):
                 except tweepy.TweepError as error:
                     self.on_error(error)
                 sleep(5)
+                
+    def prune_following_list(self):
+        # Every day, unfollow ten people who are not following the bot
+        followers = self.api.followers()
+        following = self.api.friends_ids()
+        removals = list(set(following) - set(followers))
+        for i in range(0, 10):
+            try:
+                self.api.destroy_friendship(removals[i])
+                sleep(30)
+            except tweepy.TweepError as error:
+                self.on_error(error)
+            sleep(30)
 
     def update_blocks(self):
         # Update the list of blocked users
@@ -181,8 +194,10 @@ class Watcher(tweepy.StreamListener):
 
                 # Update the block list 
                 self.blocked = self.update_blocks()
-        
                 
+                # Unfollow non-followers
+                self.prune_following_list()
+        
     def consider_tweet(self, status):
         # Determines if a tweet from the stream should be added to the queue.
 
