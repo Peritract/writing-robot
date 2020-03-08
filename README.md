@@ -7,7 +7,7 @@ A whole bunch of different hashtags have their own dedicated Twitter bots. I not
 ## Usage
 The bot tweets as [@writingrobot](https://twitter.com/writingrobot). 
 
-Currently it watches several hashtags - #100DaysOfWriting, #1linewed, #amwritingHorror, #amwritingFantasy, #amwritingRomance, #amwritingScifi.It doesn't watch #amwriting, because that hashtag is incredibly prolific, which would mean the others got ignored, and also because the majority of what comes through #amwriting is overly-hashtagged spam. 
+Currently it watches several hashtags - #100DaysOfWriting, #1linewed, #amwritingHorror, #amwritingFantasy, #amwritingRomance, #amwritingScifi. It doesn't watch #amwriting, because that hashtag is incredibly prolific, which would mean the others got ignored, and also because the majority of what comes through #amwriting is overly-hashtagged spam. 
 
 If you tweet with one of those hashtags, it should retweet you, although you might fall through the gaps if you pick a very busy time. If you tweet with more than four hashtags, it will ignore you - this is a counter-measure against spam and also those dreadful people who hashtag every second word. 
 
