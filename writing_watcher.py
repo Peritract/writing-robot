@@ -25,6 +25,7 @@ class Watcher(tweepy.StreamListener):
                        "#amwritingscifi",
                        "#1linewed",
                        "#redditwriters",
+                       "#teacherswritingfiction",
                        "#nanowrimo"]
         
         self.blocked = self.update_blocks()
@@ -131,7 +132,14 @@ class Watcher(tweepy.StreamListener):
                 if tag["text"].lower() == "1linewed" or tag["text"].lower() == "100daysofwriting":
                     return True
             return False
-        
+        elif weekday == 6 and (9 <= datetime.datetime.now().hour <= 11):
+            # On Sundays between 9 and 11 (inclusive), focus on #teacherswritingfiction
+             for tag in hashtags:
+                if tag["text"].lower() == "teacherswritingfiction":
+                    return True
+            return False
+            
+            
         #Barring a more applicable filter, allow everything as default
         return True
 
