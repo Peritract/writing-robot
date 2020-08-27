@@ -134,7 +134,7 @@ class Watcher(tweepy.StreamListener):
             return False
         elif weekday == 6 and (9 <= datetime.datetime.now().hour <= 11):
             # On Sundays between 9 and 11 (inclusive), focus on #teacherswritingfiction
-             for tag in hashtags:
+            for tag in hashtags:
                 if tag["text"].lower() == "teacherswritingfiction":
                     return True
             return False
