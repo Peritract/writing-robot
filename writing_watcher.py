@@ -156,7 +156,7 @@ class Watcher(tweepy.StreamListener):
                 self.on_error(error)
             self.last_retweet = datetime.datetime.now() # Reset the delay
         self.prune_queue() # Stop the queue getting stale
-        self.daily_actions() # Check for a daily tweet
+        # self.daily_actions() # Check for a daily tweet (temporarily disabled until I can fix its behaviour)
 
     def update_followers(self):
         #Loop through all current followers and follow them back. 
