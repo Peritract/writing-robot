@@ -26,7 +26,8 @@ class Watcher(tweepy.StreamListener):
                        "#1linewed",
                        "#redditwriters",
                        "#teacherswritingfiction",
-                       "#nanowrimo"]
+                       "#nanowrimo",
+                       "writingcommunity"]
         
         self.blocked = self.update_blocks()
         
